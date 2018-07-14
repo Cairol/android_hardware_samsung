@@ -1919,7 +1919,6 @@ static int get_next_buffer(struct resampler_buffer_provider *buffer_provider,
             return in->read_status;
         }
         in->read_buf_frames = in->config.period_size;
-
     }
 
     buffer->frame_count = (buffer->frame_count > in->read_buf_frames) ?
