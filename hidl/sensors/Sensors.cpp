@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+//#define VERBOSE
+
 #include "Sensors.h"
 #include <sensors/convert.h>
 #include "multihal.h"
@@ -137,7 +139,17 @@ Return<void> Sensors::getSensorsList(getSensorsList_cb _hidl_cb) {
             LOG(INFO) << "Fixing com.samsung.sensor.physical_proximity";
             dst->type = SensorType::PROXIMITY;
             dst->typeAsString = SENSOR_STRING_TYPE_PROXIMITY;
+            dst->maxRange = 1;
         }
+
+#ifdef VERBOSE
+        LOG(INFO) << "SENSOR NAME:           " << dst->name;
+        LOG(INFO) << "       VENDOR:         " << dst->name;
+        LOG(INFO) << "       TYPE:           " << (uint32_t)dst->type;
+        LOG(INFO) << "       TYPE_AS_STRING: " << dst->typeAsString;
+        LOG(INFO) << "       FLAGS:          " << std::hex << dst->flags;
+        LOG(INFO) << "";
+#endif
     }
 
     _hidl_cb(out);
